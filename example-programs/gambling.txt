@@ -1,7 +1,10 @@
+; shorten an import's name, like in python
 import random/securerandom as secrand
 
 luckgen = secrand.init 0 100
 
+; unset but initalized variables are "zeroized"
+; such as this this variable below (0.0)
 bet float64
 betMultiplier = 1.2
 runCost = 0.5

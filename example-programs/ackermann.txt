@@ -1,9 +1,15 @@
-import [os, flag, time, fmt]
+; importing multiple libraries in one line
+import [
+	file,  ; file operations
+	flag,  ; commandline flags
+	time,  ; timing
+	fprint ; printing to a file (similar to fmt.Fprint and its derivatives)
+]
 
 ; count how many iterations did we do
 its int
 
-func ack [m int, n int] int
+func ack (m int, n int) int
 	its++
 	ans int
 	if m == 0
@@ -18,7 +24,7 @@ func ack [m int, n int] int
 ; and we want to see what the last result was
 logfilePath = flag.string "o", "", "output log file"
 flag.parse
-logfile, err = os.create *logfilePath
+logfile, err = file.create *logfilePath
 
 ; chk [e error] is a builtin which panics if e != nil
 chk err
@@ -28,5 +34,5 @@ for i = 0; i < 6; i++
 		tn = time.now
 		res = ack i, j
 		td = time.since tn
-		fmt.printf "ackerman (%d,%d) is: %d taking %v and %d iterations\n", i, j, res, td, its
-		fmt.fprintf outfile, "%d,%d,%d,%d,%v\n", i, j, res, its, td
+		printf "ackerman (%d,%d) is: %d taking %v and %d iterations\n", i, j, res, td, its
+		fprint.printf outfile, "%d,%d,%d,%d,%v\n", i, j, res, its, td
