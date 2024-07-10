@@ -1,0 +1,27 @@
+import random/securerandom as secrand
+
+luckgen = secrand.init 0 100
+
+bet float64
+betMultiplier = 1.2
+runCost = 0.5
+currentBalance float64
+
+println "let's go gambling!!!1!!!"
+
+readinput bet "place your bets: "
+
+for
+	innum int
+	readinput innum "insert your number: "
+	lucky = luckgen.getint
+	if innum == lucky
+		bet *= betMultiplier
+		println "yahoo you won!!!"
+		printf "your balance is %f\n" bet
+	else
+		println "aw dangit"
+
+	if bet < runCost
+		println "womp womp ur now in debt lol"
+		exit 1

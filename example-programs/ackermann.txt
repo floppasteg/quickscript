@@ -1,0 +1,32 @@
+import [os, flag, time, fmt]
+
+; count how many iterations did we do
+its int
+
+func ack [m int, n int] int
+	its++
+	ans int
+	if m == 0
+		ans = n+1
+	elif n == 0
+		ans = ack m-1, 1
+	else
+		ans = ack m-1, (ack m, n-1)
+	return ans
+
+; create a log file in case the os throws its excrement against a ventilation device
+; and we want to see what the last result was
+logfilePath = flag.string "o", "", "output log file"
+flag.parse
+logfile, err = os.create *logfilePath
+
+; chk [e error] is a builtin which panics if e != nil
+chk err
+
+for i = 0; i < 6; i++
+	for j = 0; j < 6; j++
+		tn = time.now
+		res = ack i, j
+		td = time.since tn
+		fmt.printf "ackerman (%d,%d) is: %d taking %v and %d iterations\n", i, j, res, td, its
+		fmt.fprintf outfile, "%d,%d,%d,%d,%v\n", i, j, res, its, td
